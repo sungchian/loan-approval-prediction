@@ -45,7 +45,7 @@ We have carried out three machine-learning models:
 2. Logistic Regression
 3. Random Forest
 
-Each model has its own benchmark, which we will present in the analysis step.
+Each model has its benchmark, which we will present in the analysis step.
 
 The chart demonstrates the evaluation metrics for these three models.
 
@@ -54,67 +54,84 @@ The performance of each model is measured based on
 - Test F1 Score
 - Loan Acceptance Ratio
 - Loan Rejection Ratio.
-
-
-# 👣 Our Approach  
-Real estate analysis typically attempts to predict price, a continuous variable. However, we took a classification approach to this problem, since classification introduces a layer of interpretability and simplicity to our analysis, which can benefit business professionals and prospective buyers. By categorizing properties into pricing tiers (high and low), we aim to compare the accuracy and performance of each of the selected models.    
-
-# 🧽 Data Cleaning  
-1. We discretized the dependent variable.   
    <br>
-      <img src="Images/img-06.png" width="600">
+      <img src="Images/img-05.png" width="600">
    <br>  
-2. Then, we filled in the missing values with the mean and median values. Specifically, we used the median for the missing values in the acre_lot, house_size, and price columns. Additionally, rows with missing values in the city and zip_code columns were removed. Lastly, the records for Tennessee, South Carolina, and Virginia listings were removed because they contained a substantial amount of missing data.  
-   <br>
-      <img src="Images/img-07.png" width="600">
-   <br>
 
-This "cleaned" dataset served as our initial benchmark for subsequent machine learning experiments.  
-
-# 🔍 Machine Learning Models  
-### Random Forest Classifier    
-- Without any pre-processing techniques, the results are as follows:  
+# 🧽 Data Cleaning  (Todo)
+### Logistic Regression
+1. Change categorical variables into dummy variables & replace target variable with 0,1
    <br>
       <img src="Images/img-08.png" width="400">
-   <br>  
-The model predicts approximately 92% of instances correctly. The precision and recall of the model are relatively high, at 0.92, indicating a low rate of false positives and negatives. Additionally, the high F1-score implies that this model performs well. Overall, the initial benchmark for the Random Forest algorithm on this dataset demonstrates strong performance with high accuracy.  
-- We attempted to enhance the model with random sampling, dummy variables for the state attribute, feature selection, binning, min-max scaling, and standardization pre-processing techniques. Random sampling reduced the dataset for additional features while maintaining a similar model accuracy. Implementing dummy variables for the state attribute did not change the accuracy. Since the number of attributes in the original dataset is not extremely large, feature selection was not useful. Binning underscored the nature of the data which decreased its accuracy. Standardization improved the previous pre-processing, but it had minimal effect on improving the accuracy.  
    <br>
-      <img src="Images/img-09.png" width="400">
-   <br>  
-Overall, the Random Forest model that performed the best was the benchmark model (with no pre-processing). Many of the additional pre-processing techniques either worsened or had no impact relative to the original accuracy. However, a finding that was gained from the pre-processing was that price is likely to be influenced by location since adding the dummy variables for the state attribute improved the randomly sampled model.
+2. Deleting the Missing Values
+3. Standardized data
+   <br>
+      <img src="Images/img-08.png" width="400">
+   <br>
+### Random Forest
 
-### K-Nearest Neighbors Classifier  
-- Without any pre-processing techniques, the results are as follows:  
-   <br>
-      <img src="Images/img-10.png" width="400">
-   <br>  
-This model predicts approximately 88% of instances correctly. The model's precision and recall are commendably high, at 0.87, suggesting a low frequency of false positives and negatives. The high F1-score further confirms the model's effectiveness. However, this model appears to be less accurate than the Random Forest model with a 92% overall accuracy.
-- The pre-processing techniques that we employed were random sampling, an introduction of dunny variables for the states attribute, feature selection, binning, min-max scaling, and standardization. Most of the techniques were moderately effective, but they tended to distort the true nature of the data, leading to less accurate predictions. Standardization offered some improvement over the other pre-processing techniques. However, the impact it had on the overall accuracy was insignificant.     
-   <br>
-      <img src="Images/img-11.png" width="400">
-   <br>  
-Overall, the KNN model achieved optimal results when applied to the standardization of the bed, bath, acre_lot, and house_size attributes. The standardized KNN model achieved an 88.5% accuracy. a slight increase of 0.1% from the benchmark model.  
 
-### Logistic Regression  
-- Without any pre-processing techniques, the results are as follows:  
+
+
+# ✏️ Machine Learning Models  
+### Logistic Regression
+
+- We ran logistic regression with the cleaned data, which replaced NaN values with mode values and set the benchmarks 
    <br>
-      <img src="Images/img-12.png" width="400">
-   <br>  
-This model predicts approximately 70% of instances correctly. The model's precision and recall contained mixed results. As noted by the F1-score of 0.65 for the "high" class and 0.74 for the "low" class, this seems to suggest that the model is better at identifying the "low" class data points. Overall, this Logistic Regression model has room for improvement, particularly in capturing the "high" class data points.
-- Similar to the Random Forest and KNN models, the pre-processing techniques that we employed were random sampling, an introduction of dunny variables for the states attribute, feature selection, binning, min-max scaling, and standardization. Implementing dummy variables for the states attribute increased the model's accuracy to 72%. Standardization and binning on the house_size attribute improved the model's accuracy to 75%.  
+      <img src="Images/img-08.png" width="400">
    <br>
-      <img src="Images/img-13.png" width="400">
-   <br>  
-Overall, the Logistic Regression approach had better performance in two separate instances, binning on the house_size attribute and a combination of random sampling, dummy variables, and standardization. Both models achieved an accuracy of around 75%, an improvement of approximately 5% from the benchmark model.
+   <br>
+      <img src="Images/img-08.png" width="400">
+   <br>
+- We also tried replacing categorical NaN values with mode values and numerical NaN values with the mean.
+   <br>
+      <img src="Images/img-08.png" width="400">
+   <br>
+   <br>
+      <img src="Images/img-08.png" width="400">
+   <br>
+- Testing Different Parameters
+  In the final process, we tested different parameters, such as the threshold, solver, and penalty, to find the best accuracy. To limit irrelevant coefficients, we chose Lasso Regularization to prevent overfitting and encourage sparsity in the model.
+  <br>
+      <img src="Images/img-08.png" width="400">
+  <br>
+- We used GridSearchCV with CrossValidation to determine the best hyperparameters, and it turns out LogisticRegression(C=0.01, random_state=42, solver='liblinear') is the best parameter for the model. Eventually, we got the testing accuracy at 92%, and the F1 score was 95%
+  <br>
+      <img src="Images/img-08.png" width="400">
+  <br>
+
+Our model assesses the accuracy threshold and F1 score for both the training and testing sets, producing a clear chart. After analyzing the decision threshold chart, we chose a threshold of 0.5 as it corresponds to the highest testing accuracy.
+   <br>
+      <img src="Images/img-08.png" width="400">
+  <br>
+
+After fitting the logistic regression model with the L1 penalty, we inspect which variables have been set to zero (effectively deleted) by examining the coefficients of the model. 
+
+Eventually, the model excluded all categorical variables and only kept numerical ones after implementing the L1 penalty.
+
+In conclusion, the two methods that improved testing accuracy the most were removing missing values and applying L1 regularization. 
+
+To determine whether to authorize the loans or not, we must still build a cost-benefit matrix and account for the costs associated with type 1 and type 2 errors because loan prediction is more closely tied to the expected value framework.
+
+## Logistic regression accuracy chart:
+  <br>
+      <img src="Images/img-08.png" width="400">
+  <br>
+   
+
 
 # 🔑 Key Takeaways    
-We implemented three machine learning models to predict whether a real estate listing could be classified as a "high" or "low" price listing. From our analysis, we concluded how different models reacted to a variety of pre-processing techniques. From our choice of pre-processing techniques, the best techniques seemed to involve a combination of random sampling, standardization, and dummy variables for the state attribute. The binning technique improved the Logistic Regression model significantly. However, binning also led to a significant decrease in the performance of the Random Forest and KNN models, suggesting the importance of retaining the original granularity for some features.  
+The performance of the Logistic Regression model remained steady across various methods, showcasing notable advancements, particularly when leveraging GridSearchCV for parameter optimization.
 
-For this dataset, the best model seemed to be the Random Forest algorithm with no pre-processing. This model had the highest accuracy of 92%. Property location also seemed to be the attribute that plays a significant role in price.  
+While the Random Forest model demonstrated enhanced accuracy through techniques like pre-pruning and parameter testing, the impact of the 'Delete missing values' method was moderate.
+
+In contrast, the Decision Tree model displayed consistent performance regardless of the method employed.
+
+In conclusion, for maximizing model performance, Logistic Regression exhibited superior results, especially when fine-tuning parameters, closely trailed by the Random Forest model. The Decision Tree model did not substantially improve accuracy following the 'Delete missing values' method.
 
 # ☁️ Project Improvements  
-This project was for the first machine learning class that I took, and it was also the first project where I applied machine learning algorithms. Knowing what I know now if I were to improve this project, I would focus on improving the Random Forest model using different boosting methods, such as Adaptive Boosting and Gradient Boosting.  
+
 
 
 
