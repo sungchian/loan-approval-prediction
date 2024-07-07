@@ -176,6 +176,7 @@ In summary, the Random Forest model performed well when employing GridSearchCV a
       <img src="images/pic27.jpg" width="600">
   <br>
 </b>
+
 ### Decision Trees
 - Initially, we transformed the categorical columns. We ran the decision tree model without adding NaN, and the results showed that our benchmark was 0.86 for testing accuracy, 0.92 for testing F1 score, 0.89 for training accuracy, and 0.93 for training F1 score.
   <br>
@@ -205,7 +206,8 @@ Overall, the highest testing accuracy was 0.92, the testing F1 score was 0.95, t
       <img src="images/pic34.jpg" width="600">
   <br>
 </b>
-# 🔑 Key Takeaways    
+
+# 🔑 Key Takeaways
 The performance of the Logistic Regression model remained steady across various methods, showcasing notable advancements, particularly when leveraging GridSearchCV for parameter optimization.
 
 While the Random Forest model demonstrated enhanced accuracy through techniques like pre-pruning and parameter testing, the impact of the 'Delete missing values' method was moderate.
