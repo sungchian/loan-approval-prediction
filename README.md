@@ -32,10 +32,6 @@ Our project questions include:
    <br>
       <img src="images/pic4.jpg" width="500">
    <br>
-- 
-   <br>
-      <img src="images/pic5.jpg" width="500">
-   <br>
 
 These features contribute to a holistic understanding of applicants' backgrounds and financial capacities, laying the foundation for building an effective predictive model.
 
@@ -55,19 +51,19 @@ The performance of each model is measured based on
 - Loan Acceptance Ratio
 - Loan Rejection Ratio.
    <br>
-      <img src="images/pic6.jpg" width="600">
+      <img src="images/pic5.jpg" width="600">
    <br>  
 
 # 🧽 Data Cleaning  (Todo)
 ### Logistic Regression
 1. Change categorical variables into dummy variables & replace target variable with 0,1
    <br>
-      <img src="images/pic7.jpg" width="400">
+      <img src="images/pic6.jpg" width="400">
    <br>
 2. Deleting the Missing Values
 3. Standardized data
    <br>
-      <img src="images/pic8.jpg" width="400">
+      <img src="images/pic7.jpg" width="400">
    <br>
 ### Random Forest
 1. Pre-pruning (mode): Implement pre-pruning techniques to avoid overfitting
@@ -79,31 +75,31 @@ The performance of each model is measured based on
 
 - We ran logistic regression with the cleaned data, which replaced NaN values with mode values and set the benchmarks 
    <br>
+      <img src="images/pic8.jpg" width="400">
+   <br>
+   <br>
       <img src="images/pic9.jpg" width="400">
-   <br>
-   <br>
-      <img src="images/pic10.jpg" width="400">
    <br>
 - We also tried replacing categorical NaN values with mode values and numerical NaN values with the mean.
    <br>
+      <img src="images/pic10.jpg" width="400">
+   <br>
+   <br>
       <img src="images/pic11.jpg" width="400">
-   <br>
-   <br>
-      <img src="images/pic12.jpg" width="400">
    <br>
 - Testing Different Parameters
   In the final process, we tested different parameters, such as the threshold, solver, and penalty, to find the best accuracy. To limit irrelevant coefficients, we chose Lasso Regularization to prevent overfitting and encourage sparsity in the model.
   <br>
-      <img src="images/pic13.jpg" width="400">
+      <img src="images/pic12.jpg" width="400">
   <br>
 - We used GridSearchCV with CrossValidation to determine the best hyperparameters, and it turns out LogisticRegression(C=0.01, random_state=42, solver='liblinear') is the best parameter for the model. Eventually, we got the testing accuracy at 92%, and the F1 score was 95%
   <br>
-      <img src="images/pic14.jpg" width="400">
+      <img src="images/pic13.jpg" width="400">
   <br>
 
 Our model assesses the accuracy threshold and F1 score for both the training and testing sets, producing a clear chart. After analyzing the decision threshold chart, we chose a threshold of 0.5 as it corresponds to the highest testing accuracy.
    <br>
-      <img src="images/pic15.jpg" width="400">
+      <img src="images/pic14.jpg" width="400">
   <br>
 
 After fitting the logistic regression model with the L1 penalty, we inspect which variables have been set to zero (effectively deleted) by examining the coefficients of the model. 
