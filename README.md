@@ -67,6 +67,30 @@ The performance of each model is measured based on
    <br>
 ### Random Forest
 1. Pre-pruning (mode): Implement pre-pruning techniques to avoid overfitting
+   <br>
+      <img src="images/pic15.jpg" width="400">
+   <br>
+   <br>
+      <img src="images/pic16.jpg" width="400">
+   <br>
+2. Delete missing values: The rows decreased from 981 to 765
+   <br>
+      <img src="images/pic17.jpg" width="400">
+   <br>
+3. We scale the data to investigate whether inconsistencies in the data's magnitude would impact accuracy and F1 score.
+   <br>
+      <img src="images/pic18.jpg" width="400">
+   <br>
+### Decision Trees
+1. Removed all of the missing values, and replaced missing values with mode
+   <br>
+      <img src="images/pic28.jpg" width="400">
+   <br>
+3. Replaced missing values with mode and mean
+   <br>
+      <img src="images/pic29.jpg" width="400">
+   <br>
+
 
 
 
@@ -110,13 +134,72 @@ In conclusion, the two methods that improved testing accuracy the most were remo
 
 To determine whether to authorize the loans or not, we must still build a cost-benefit matrix and account for the costs associated with type 1 and type 2 errors because loan prediction is more closely tied to the expected value framework.
 
-## 📈 Logistic regression accuracy chart:
+<b>📈 Logistic regression accuracy chart:
+</b>
   <br>
       <img src="images/pic15.jpg" width="400">
   <br>
    
+### Random Forest
+- We ran Random Forest with the cleaned data, which replaced NaN values with mode values and set the benchmarks 
+   <br>
+      <img src="images/pic19.jpg" width="400">
+   <br>
+- Then we used cross-validation
+   <br>
+      <img src="images/pic20.jpg" width="400">
+   <br>
+- We adjusted the parameters.
+   <br>
+      <img src="images/pic22.jpg" width="400">
+   <br>
+- Adjusted some parameters, which helped reduce overfitting and, in turn, improved the accuracy and F1 score on the test set.
+   <br>
+      <img src="images/pic23.jpg" width="400">
+   <br>
+- Employ GridSearchCV to systematically test and tune different parameters.
+   <br>
+      <img src="images/pic24.jpg" width="400">
+   <br>
 
+- In the final process, we tested different parameters, such as the n_estimators, max_depth, and min_samples_split on our own, to find the best accuracy.
+  <br>
+      <img src="images/pic26.jpg" width="400">
+   <br>
 
+In summary, the Random Forest model performed well when employing GridSearchCV and testing various parameters on our own, exhibiting significant improvements in accuracy and achieving the best F1 score on the test set.
+<b>📈 Random Forest accuracy chart:
+  <br>
+      <img src="images/pic27.jpg" width="400">
+  <br>
+</b>
+### Decision Trees
+- Initially, we transformed the categorical columns. We ran the decision tree model without adding NaN, and the results showed that our benchmark was 0.86 for testing accuracy, 0.92 for testing F1 score, 0.89 for training accuracy, and 0.93 for training F1 score.
+  <br>
+      <img src="images/pic30.jpg" width="400">
+  <br>
+
+- We did pre-processing, split=.3, (max_depth, min_samples_leaf) = (3, 3)
+  <br>
+      <img src="images/pic31.jpg" width="400">
+  <br>
+
+- Missing values replaced with mode, split=.3, (max_depth, min_samples_leaf) = (4, 4)
+  <br>
+      <img src="images/pic32.jpg" width="400">
+  <br>
+  
+- Missing values replaced with mode and mean, split=.3, (max_depth, min_samples_leaf) = (3, 3)
+  <br>
+      <img src="images/pic33.jpg" width="400">
+  <br>
+
+Overall, the highest testing accuracy was 0.92, the testing F1 score was 0.95, the training accuracy was 0.87, and the training F1 score was 0.92
+<b>📈 Decision Trees accuracy chart:
+  <br>
+      <img src="images/pic34.jpg" width="400">
+  <br>
+</b>
 # 🔑 Key Takeaways    
 The performance of the Logistic Regression model remained steady across various methods, showcasing notable advancements, particularly when leveraging GridSearchCV for parameter optimization.
 
@@ -127,7 +210,14 @@ In contrast, the Decision Tree model displayed consistent performance regardless
 In conclusion, for maximizing model performance, Logistic Regression exhibited superior results, especially when fine-tuning parameters, closely trailed by the Random Forest model. The Decision Tree model did not substantially improve accuracy following the 'Delete missing values' method.
 
 # ☁️ Project Improvements  
+1. Feature Engineering:
+Enhance the predictive power of the models by creating new features from the existing data. For example, interaction terms between numerical features or aggregating features that can capture more complex relationships within the data. This could include ratios like the loan amount to applicant income, or new binary indicators for specific thresholds in income or loan amount.
 
+2. Handling Missing Values:
+Instead of simply deleting rows with missing values or using basic imputation techniques, apply advanced imputation methods like K-Nearest Neighbors (KNN) imputation, or model-based imputation. These methods can better estimate missing values based on the relationships between features, potentially improving model performance.
+
+3. Algorithm Tuning and Ensemble Methods:
+Further tune the hyperparameters of the models using more sophisticated techniques such as Bayesian Optimization or Genetic Algorithms. Additionally, consider ensemble methods that combine multiple models, such as Gradient Boosting Machines (GBM) or Stacking, to potentially increase accuracy and robustness.
 
 
 
